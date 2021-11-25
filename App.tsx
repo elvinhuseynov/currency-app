@@ -1,20 +1,19 @@
 import React from "react";
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, View, SafeAreaView } from "react-native";
-import * as eva from '@eva-design/eva';
-import { ApplicationProvider, IconRegistry, Input, Layout, Button } from '@ui-kitten/components';
-import { EvaIconsPack } from '@ui-kitten/eva-icons';
-
-export const ThemeContext = React.createContext({
-  theme: 'light',
-  toggleTheme: () => {},
-});
+import { StyleSheet, SafeAreaView } from "react-native";
+import * as eva from "@eva-design/eva";
+import {
+  ApplicationProvider,
+  IconRegistry,
+  Layout,
+} from "@ui-kitten/components";
+import { EvaIconsPack } from "@ui-kitten/eva-icons";
+import { FormComponent } from "./components/FormComponent";
 
 export default function App() {
-  const [theme, setTheme] = React.useState<'light' | 'dark'>('dark');
+  const [theme, setTheme] = React.useState<"light" | "dark">("light");
 
   const toggleTheme = () => {
-    const nextTheme = theme === 'light' ? 'dark' : 'light';
+    const nextTheme = theme === "light" ? "dark" : "light";
     setTheme(nextTheme);
   };
 
@@ -22,26 +21,16 @@ export default function App() {
     <>
       <IconRegistry icons={EvaIconsPack} />
       <ApplicationProvider {...eva} theme={eva[theme]}>
-        <StatusBar style="auto" />
-        <Layout style={styles.container} >
-          <SafeAreaView>
-            <View>
-              <Input label="hello" style={{ width: 300 }} />
-              <Input label="mello" style={{ width: 300 }} />
-              <Button>hello</Button>
-            </View>
-          </SafeAreaView>
-        </Layout>
+        <SafeAreaView>
+          <Layout style={styles.container}>
+            <FormComponent toggleTheme={toggleTheme} />
+          </Layout>
+        </SafeAreaView>
       </ApplicationProvider>
     </>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-//     // backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
+  container: { flex: 1 },
 });

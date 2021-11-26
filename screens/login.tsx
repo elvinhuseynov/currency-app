@@ -32,8 +32,8 @@ type TStateKeys = "email" | "password";
 
 export const Login: FC = ({ navigation }) => {
   const state = useReactive({
-    email: "",
-    password: "",
+    email: "admin@admin.com",
+    password: "admin",
     errors: {
       email: "",
       password: "",

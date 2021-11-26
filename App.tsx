@@ -1,5 +1,7 @@
 import React from "react";
-import { StyleSheet, SafeAreaView } from "react-native";
+import { StyleSheet } from "react-native";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import * as eva from "@eva-design/eva";
 import {
   ApplicationProvider,
@@ -7,25 +9,28 @@ import {
   Layout,
 } from "@ui-kitten/components";
 import { EvaIconsPack } from "@ui-kitten/eva-icons";
-import { FormComponent } from "./components/FormComponent";
+import { Login } from "./screens/login";
+import { Home } from "./screens/home";
+
+const Stack = createNativeStackNavigator();
 
 export default function App() {
-  const [theme, setTheme] = React.useState<"light" | "dark">("light");
-
-  const toggleTheme = () => {
-    const nextTheme = theme === "light" ? "dark" : "light";
-    setTheme(nextTheme);
-  };
-
   return (
     <>
       <IconRegistry icons={EvaIconsPack} />
-      <ApplicationProvider {...eva} theme={eva[theme]}>
-        <SafeAreaView>
-          <Layout style={styles.container}>
-            <FormComponent toggleTheme={toggleTheme} />
-          </Layout>
-        </SafeAreaView>
+      <ApplicationProvider {...eva} theme={eva["dark"]}>
+        <Layout style={styles.container}>
+          <NavigationContainer>
+            <Stack.Navigator
+              screenOptions={{
+                headerShown: false,
+              }}
+            >
+              <Stack.Screen name="Login" component={Login} />
+              <Stack.Screen name="Home" component={Home} />
+            </Stack.Navigator>
+          </NavigationContainer>
+        </Layout>
       </ApplicationProvider>
     </>
   );

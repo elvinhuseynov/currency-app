@@ -19,8 +19,6 @@ const validateForm = (errors: IState["errors"]) => {
   return valid;
 };
 
-interface IProps {}
-
 interface IState {
   email: string;
   password: string;
@@ -32,7 +30,7 @@ interface IState {
 
 type TStateKeys = "email" | "password";
 
-export const FormComponent: FC<IProps> = () => {
+export const Login: FC = ({ navigation }) => {
   const state = useReactive({
     email: "",
     password: "",
@@ -80,7 +78,7 @@ export const FormComponent: FC<IProps> = () => {
       return;
     if (validateForm(state.errors)) {
       Keyboard.dismiss();
-      alert("Created successfully.");
+      navigation.navigate("Home");
     } else {
       validateForm(state.errors);
     }
